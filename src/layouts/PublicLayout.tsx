@@ -4,7 +4,7 @@ import Footer from '../components/ui/Footer'
 
 export default function PublicLayout() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
+    <div className="min-h-screen bg-surface">
       <NavBar />
       <main className="pt-14">
         <Outlet />

@@ -21,6 +21,9 @@ const SOCIALS = [
   },
 ]
 
+const inputClass =
+  'font-mono text-sm px-4 py-2.5 rounded-sm outline-none w-full border border-border bg-transparent text-ink'
+
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
@@ -46,15 +49,8 @@ export default function Contact() {
     }
   }
 
-  const inputClass = 'font-mono text-sm px-4 py-2.5 rounded-sm outline-none w-full'
-  const inputStyle: React.CSSProperties = {
-    border: '1px solid var(--color-border)',
-    background: 'transparent',
-    color: 'var(--color-ink)',
-  }
-
   return (
-    <section id="contact" className="py-24" style={{ backgroundColor: 'rgba(255,255,255,0.5)' }}>
+    <section id="contact" className="py-24 bg-white/50">
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading label="Get in touch" title="Contact" />
 
@@ -67,7 +63,6 @@ export default function Contact() {
               placeholder="Name"
               required
               className={inputClass}
-              style={inputStyle}
             />
             <input
               name="email"
@@ -77,7 +72,6 @@ export default function Contact() {
               placeholder="Email"
               required
               className={inputClass}
-              style={inputStyle}
             />
             <textarea
               name="message"
@@ -87,18 +81,15 @@ export default function Contact() {
               required
               rows={5}
               className={`${inputClass} resize-none`}
-              style={inputStyle}
             />
             <Button type="submit" disabled={status === 'sending'}>
               {status === 'sending' ? 'Sending...' : 'Send message'}
             </Button>
             {status === 'sent' && (
-              <p className="font-mono text-xs" style={{ color: '#16a34a' }}>
-                Message sent!
-              </p>
+              <p className="font-mono text-xs text-green-600">Message sent!</p>
             )}
             {status === 'error' && (
-              <p className="font-mono text-xs" style={{ color: '#dc2626' }}>
+              <p className="font-mono text-xs text-red-600">
                 Something went wrong — try emailing directly.
               </p>
             )}
@@ -107,18 +98,14 @@ export default function Contact() {
           <div className="flex flex-col gap-6 justify-center">
             {SOCIALS.map(social => (
               <div key={social.label}>
-                <p
-                  className="font-mono text-xs uppercase tracking-widest mb-1"
-                  style={{ color: 'var(--color-muted)' }}
-                >
+                <p className="font-mono text-xs uppercase tracking-widest mb-1 text-muted">
                   {social.label}
                 </p>
                 <a
                   href={social.href}
                   target={social.label !== 'Email' ? '_blank' : undefined}
                   rel="noopener noreferrer"
-                  className="font-mono text-sm hover:underline"
-                  style={{ color: 'var(--color-ink)' }}
+                  className="font-mono text-sm hover:underline text-ink"
                 >
                   {social.display}
                 </a>

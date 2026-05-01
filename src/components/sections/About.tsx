@@ -16,11 +16,11 @@ export default function About() {
 
         <div className="grid md:grid-cols-2 gap-12">
           <div>
-            <p className="text-base leading-relaxed mb-4" style={{ color: 'var(--color-ink)' }}>
+            <p className="text-base leading-relaxed mb-4 text-ink">
               I'm a software engineer and consultant with experience delivering complex,
               high-stakes projects across financial services, insurance, and enterprise technology.
             </p>
-            <p className="text-base leading-relaxed" style={{ color: 'var(--color-ink)' }}>
+            <p className="text-base leading-relaxed text-ink">
               I work across the full stack — from Angular and React frontends through to Java
               backends — with a particular focus on payments, architecture, and getting things
               shipped.
@@ -30,12 +30,8 @@ export default function About() {
           <ul className="space-y-4">
             {HIGHLIGHTS.map(item => (
               <li key={item} className="flex items-start gap-3">
-                <span className="font-mono mt-0.5 shrink-0" style={{ color: 'var(--color-accent)' }}>
-                  →
-                </span>
-                <span className="text-sm" style={{ color: 'var(--color-ink)' }}>
-                  {item}
-                </span>
+                <span className="font-mono mt-0.5 shrink-0 text-accent">→</span>
+                <span className="text-sm text-ink">{item}</span>
               </li>
             ))}
           </ul>

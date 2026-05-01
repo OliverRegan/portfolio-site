@@ -11,8 +11,7 @@ export default function Work() {
           {projects.map(project => (
             <div
               key={project.id}
-              className="border rounded-sm p-6 flex flex-col"
-              style={{ borderColor: 'var(--color-border)' }}
+              className="border border-border rounded-sm p-6 flex flex-col"
             >
               {project.image && (
                 <img
@@ -22,20 +21,15 @@ export default function Work() {
                 />
               )}
 
-              <h3 className="font-mono font-bold text-sm mb-2" style={{ color: 'var(--color-ink)' }}>
-                {project.title}
-              </h3>
+              <h3 className="font-mono font-bold text-sm mb-2 text-ink">{project.title}</h3>
 
-              <p className="text-sm leading-relaxed flex-1" style={{ color: 'var(--color-muted)' }}>
-                {project.description}
-              </p>
+              <p className="text-sm leading-relaxed flex-1 text-muted">{project.description}</p>
 
               <div className="flex flex-wrap gap-1.5 mt-4">
                 {project.tags.map(tag => (
                   <span
                     key={tag}
-                    className="font-mono text-xs border px-2 py-0.5 rounded-full"
-                    style={{ borderColor: 'var(--color-border)', color: 'var(--color-muted)' }}
+                    className="font-mono text-xs border border-border px-2 py-0.5 rounded-full text-muted"
                   >
                     {tag}
                   </span>
@@ -47,8 +41,7 @@ export default function Work() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-xs mt-4 hover:underline"
-                  style={{ color: 'var(--color-accent)' }}
+                  className="font-mono text-xs mt-4 hover:underline text-accent"
                 >
                   View →
                 </a>

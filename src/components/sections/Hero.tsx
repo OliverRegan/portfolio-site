@@ -9,22 +9,14 @@ export default function Hero() {
   return (
     <section id="hero" className="min-h-screen flex items-center">
       <div className="max-w-5xl mx-auto px-6 py-24">
-        <p
-          className="font-mono text-xs uppercase tracking-widest mb-4"
-          style={{ color: 'var(--color-muted)' }}
-        >
+        <p className="font-mono text-xs uppercase tracking-widest mb-4 text-muted">
           Ollie Regan
         </p>
 
-        <h1
-          className="font-bold text-5xl md:text-6xl leading-tight mb-6"
-          style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-ink)' }}
-        >
+        <h1 className="font-mono font-bold text-5xl md:text-6xl leading-tight mb-6 text-ink">
           Software Engineer
           <br />
-          <span style={{ color: 'var(--color-muted)', fontWeight: 400 }}>
-            &amp; Solution Architect
-          </span>
+          <span className="text-muted font-normal">&amp; Solution Architect</span>
         </h1>
 
         <div className="flex flex-wrap gap-2 mb-10">

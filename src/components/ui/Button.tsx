@@ -6,6 +6,11 @@ interface ButtonProps {
   disabled?: boolean
 }
 
+const variantClass: Record<string, string> = {
+  primary: 'bg-ink text-surface',
+  secondary: 'border border-border text-muted',
+}
+
 export default function Button({
   children,
   onClick,
@@ -13,14 +18,13 @@ export default function Button({
   type = 'button',
   disabled,
 }: ButtonProps) {
-  const base = 'font-mono text-sm px-5 py-2.5 rounded-sm transition-opacity disabled:opacity-50 cursor-pointer'
-  const styles: Record<string, React.CSSProperties> = {
-    primary: { backgroundColor: 'var(--color-ink)', color: 'var(--color-bg)' },
-    secondary: { border: '1px solid var(--color-border)', color: 'var(--color-muted)' },
-  }
-
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={base} style={styles[variant]}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`font-mono text-sm px-5 py-2.5 rounded-sm transition-opacity disabled:opacity-50 cursor-pointer ${variantClass[variant]}`}
+    >
       {children}
     </button>
   )

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-:root {
-  --color-bg: #f9f9f7;
+@theme {
   --color-ink: #0f0f0f;
+  --color-surface: #f9f9f7;
   --color-accent: #1e293b;
   --color-muted: #6b7280;
   --color-border: #e5e5e3;
@@ -10,6 +10,6 @@
 }
 
 body {
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   color: var(--color-ink);
 }

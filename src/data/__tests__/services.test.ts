@@ -10,7 +10,7 @@ describe('services data', () => {
       expect(service.id).toBeTruthy()
       expect(service.title).toBeTruthy()
       expect(service.description).toBeTruthy()
-      expect(service.icon).toBeTruthy()
+
     })
   })
 

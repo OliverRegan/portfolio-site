@@ -11,16 +11,9 @@ export default function NavBar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 border-b"
-      style={{ backgroundColor: 'var(--color-bg)', borderColor: 'var(--color-border)' }}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-surface border-b border-border">
       <nav className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <a
-          href="#hero"
-          className="font-mono font-bold text-sm tracking-tight"
-          style={{ color: 'var(--color-ink)' }}
-        >
+        <a href="#hero" className="font-mono font-bold text-sm tracking-tight text-ink">
           Ollie Regan
         </a>
 
@@ -29,8 +22,7 @@ export default function NavBar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="font-mono text-xs uppercase tracking-widest transition-colors hover:opacity-100"
-                style={{ color: 'var(--color-muted)' }}
+                className="font-mono text-xs uppercase tracking-widest text-muted transition-opacity hover:opacity-100"
               >
                 {link.label}
               </a>
@@ -40,8 +32,7 @@ export default function NavBar() {
 
         <button
           aria-label="Toggle menu"
-          className="md:hidden font-mono text-xs uppercase tracking-widest"
-          style={{ color: 'var(--color-muted)' }}
+          className="md:hidden font-mono text-xs uppercase tracking-widest text-muted"
           onClick={() => setOpen(o => !o)}
         >
           {open ? 'Close' : 'Menu'}
@@ -49,16 +40,12 @@ export default function NavBar() {
       </nav>
 
       {open && (
-        <ul
-          className="md:hidden border-t px-6 py-4 flex flex-col gap-4"
-          style={{ backgroundColor: 'var(--color-bg)', borderColor: 'var(--color-border)' }}
-        >
+        <ul className="md:hidden bg-surface border-t border-border px-6 py-4 flex flex-col gap-4">
           {NAV_LINKS.map(link => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="font-mono text-xs uppercase tracking-widest"
-                style={{ color: 'var(--color-muted)' }}
+                className="font-mono text-xs uppercase tracking-widest text-muted"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
