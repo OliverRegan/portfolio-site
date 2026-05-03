@@ -39,15 +39,15 @@ export interface Social {
 export const socials: Social[] = [
   {
     label: 'LinkedIn',
-    href: 'https://linkedin.com/in/your-handle',
-    display: 'linkedin.com/in/your-handle',
+    href: 'https://www.linkedin.com/in/oliver-regan-9369b2175/',
+    display: 'linkedin.com/in/oliver-regan',
     icon: LinkedinIcon,
     external: true,
   },
   {
     label: 'GitHub',
-    href: 'https://github.com/your-handle',
-    display: 'github.com/your-handle',
+    href: 'https://github.com/OliverRegan',
+    display: 'github.com/OliverRegan',
     icon: GithubIcon,
     external: true,
   },
