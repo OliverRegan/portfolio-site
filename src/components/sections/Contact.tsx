@@ -38,6 +38,14 @@ export default function Contact() {
     setForm(prev => ({ ...prev, [name]: value }))
   }
 
+  const isSubmitDisabled =
+    status === 'sending' ||
+    !form.name.trim() ||
+    !EMAIL_REGEX.test(form.email) ||
+    !!errors.name ||
+    !!errors.email ||
+    !!errors.phone
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const nameErr = validate('name', form.name)
@@ -115,17 +123,7 @@ export default function Contact() {
               className={`${inputClass} resize-none`}
             />
 
-            <Button
-              type="submit"
-              disabled={
-                status === 'sending' ||
-                !form.name.trim() ||
-                !EMAIL_REGEX.test(form.email) ||
-                !!errors.name ||
-                !!errors.email ||
-                !!errors.phone
-              }
-            >
+            <Button type="submit" disabled={isSubmitDisabled}>
               {status === 'sending' ? 'Sending...' : 'Send message'}
             </Button>
 

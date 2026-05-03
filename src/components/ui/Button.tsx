@@ -23,7 +23,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`font-mono text-sm px-5 py-2.5 rounded-sm transition-opacity disabled:opacity-50 cursor-pointer ${variantClass[variant]}`}
+      className={`font-mono text-sm px-5 py-2.5 rounded-sm transition-opacity disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed ${variantClass[variant]}`}
     >
       {children}
     </button>
