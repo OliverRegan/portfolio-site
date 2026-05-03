@@ -8,7 +8,7 @@ const inputClass =
   'font-mono text-sm px-4 py-2.5 rounded-sm outline-none w-full border border-border bg-transparent text-ink'
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -22,11 +22,11 @@ export default function Contact() {
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        { from_name: form.name, from_email: form.email, message: form.message },
+        { from_name: form.name, from_email: form.email, from_phone: form.phone, message: form.message },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       )
       setStatus('sent')
-      setForm({ name: '', email: '', message: '' })
+      setForm({ name: '', email: '', phone: '', message: '' })
     } catch {
       setStatus('error')
     }
@@ -54,6 +54,14 @@ export default function Contact() {
               onChange={handleChange}
               placeholder="Email"
               required
+              className={inputClass}
+            />
+            <input
+              name="phone"
+              type="tel"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="Phone (optional)"
               className={inputClass}
             />
             <textarea
