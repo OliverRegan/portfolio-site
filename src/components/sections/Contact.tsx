@@ -4,19 +4,28 @@ import SectionHeading from '../ui/SectionHeading'
 import Button from '../ui/Button'
 import { socials } from '../../data/socials.tsx'
 
+// Allows +, spaces, hyphens, parentheses and digits — covers most international formats
+const PHONE_REGEX = /^[+\d][\d\s\-().]{6,19}$/
+
 const inputClass =
   'font-mono text-sm px-4 py-2.5 rounded-sm outline-none w-full border border-border bg-transparent text-ink'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [phoneError, setPhoneError] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    const { name, value } = e.target
+    if (name === 'phone') {
+      setPhoneError(value && !PHONE_REGEX.test(value) ? 'Enter a valid phone number' : '')
+    }
+    setForm(prev => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (phoneError) return
     setStatus('sending')
     try {
       await emailjs.send(
@@ -56,14 +65,19 @@ export default function Contact() {
               required
               className={inputClass}
             />
-            <input
-              name="phone"
-              type="tel"
-              value={form.phone}
-              onChange={handleChange}
-              placeholder="Phone (optional)"
-              className={inputClass}
-            />
+            <div>
+              <input
+                name="phone"
+                type="tel"
+                value={form.phone}
+                onChange={handleChange}
+                placeholder="Phone (optional)"
+                className={`${inputClass} ${phoneError ? 'border-red-400' : ''}`}
+              />
+              {phoneError && (
+                <p className="font-mono text-xs text-red-600 mt-1">{phoneError}</p>
+              )}
+            </div>
             <textarea
               name="message"
               value={form.message}
