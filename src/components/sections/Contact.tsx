@@ -115,7 +115,17 @@ export default function Contact() {
               className={`${inputClass} resize-none`}
             />
 
-            <Button type="submit" disabled={status === 'sending'}>
+            <Button
+              type="submit"
+              disabled={
+                status === 'sending' ||
+                !form.name.trim() ||
+                !EMAIL_REGEX.test(form.email) ||
+                !!errors.name ||
+                !!errors.email ||
+                !!errors.phone
+              }
+            >
               {status === 'sending' ? 'Sending...' : 'Send message'}
             </Button>
 
