@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { socials } from '../../data/socials.tsx'
 
 const NAV_LINKS = [
   { label: 'About', href: '#about' },
@@ -6,6 +7,8 @@ const NAV_LINKS = [
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ]
+
+const NAV_SOCIALS = socials.filter(s => s.label !== 'Email')
 
 export default function NavBar() {
   const [open, setOpen] = useState(false)
@@ -17,18 +20,35 @@ export default function NavBar() {
           Ollie Regan
         </a>
 
-        <ul className="hidden md:flex gap-8">
-          {NAV_LINKS.map(link => (
-            <li key={link.href}>
+        <div className="hidden md:flex items-center gap-8">
+          <ul className="flex gap-8">
+            {NAV_LINKS.map(link => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="font-mono text-xs uppercase tracking-widest text-muted transition-opacity hover:opacity-100"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-3 border-l border-border pl-6">
+            {NAV_SOCIALS.map(({ label, href, icon: Icon, external }) => (
               <a
-                href={link.href}
-                className="font-mono text-xs uppercase tracking-widest text-muted transition-opacity hover:opacity-100"
+                key={label}
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="text-muted hover:text-ink transition-colors"
               >
-                {link.label}
+                <Icon size={16} />
               </a>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </div>
 
         <button
           aria-label="Toggle menu"
@@ -40,19 +60,36 @@ export default function NavBar() {
       </nav>
 
       {open && (
-        <ul className="md:hidden bg-surface border-t border-border px-6 py-4 flex flex-col gap-4">
-          {NAV_LINKS.map(link => (
-            <li key={link.href}>
+        <div className="md:hidden bg-surface border-t border-border px-6 py-4 flex flex-col gap-4">
+          <ul className="flex flex-col gap-4">
+            {NAV_LINKS.map(link => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="font-mono text-xs uppercase tracking-widest text-muted"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex gap-4 pt-2 border-t border-border">
+            {NAV_SOCIALS.map(({ label, href, icon: Icon, external }) => (
               <a
-                href={link.href}
-                className="font-mono text-xs uppercase tracking-widest text-muted"
-                onClick={() => setOpen(false)}
+                key={label}
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="text-muted hover:text-ink transition-colors"
               >
-                {link.label}
+                <Icon size={16} />
               </a>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </div>
       )}
     </header>
   )

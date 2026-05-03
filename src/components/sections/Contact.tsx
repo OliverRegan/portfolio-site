@@ -2,24 +2,7 @@ import { useState } from 'react'
 import emailjs from '@emailjs/browser'
 import SectionHeading from '../ui/SectionHeading'
 import Button from '../ui/Button'
-
-const SOCIALS = [
-  {
-    label: 'LinkedIn',
-    href: 'https://linkedin.com/in/your-handle',
-    display: 'linkedin.com/in/your-handle',
-  },
-  {
-    label: 'GitHub',
-    href: 'https://github.com/your-handle',
-    display: 'github.com/your-handle',
-  },
-  {
-    label: 'Email',
-    href: 'mailto:ollieregan1@gmail.com',
-    display: 'ollieregan1@gmail.com',
-  },
-]
+import { socials } from '../../data/socials.tsx'
 
 const inputClass =
   'font-mono text-sm px-4 py-2.5 rounded-sm outline-none w-full border border-border bg-transparent text-ink'
@@ -95,21 +78,23 @@ export default function Contact() {
             )}
           </form>
 
-          <div className="flex flex-col gap-6 justify-center">
-            {SOCIALS.map(social => (
-              <div key={social.label}>
-                <p className="font-mono text-xs uppercase tracking-widest mb-1 text-muted">
-                  {social.label}
-                </p>
-                <a
-                  href={social.href}
-                  target={social.label !== 'Email' ? '_blank' : undefined}
-                  rel="noopener noreferrer"
-                  className="font-mono text-sm hover:underline text-ink"
-                >
-                  {social.display}
-                </a>
-              </div>
+          <div className="flex flex-col gap-5 justify-center">
+            {socials.map(({ label, href, display, icon: Icon, external }) => (
+              <a
+                key={label}
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group"
+              >
+                <Icon
+                  size={18}
+                  className="text-muted group-hover:text-ink transition-colors shrink-0"
+                />
+                <span className="font-mono text-sm text-muted group-hover:text-ink transition-colors">
+                  {display}
+                </span>
+              </a>
             ))}
           </div>
         </div>
