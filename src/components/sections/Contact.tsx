@@ -4,28 +4,49 @@ import SectionHeading from '../ui/SectionHeading'
 import Button from '../ui/Button'
 import { socials } from '../../data/socials.tsx'
 
-// Allows +, spaces, hyphens, parentheses and digits — covers most international formats
 const PHONE_REGEX = /^[+\d][\d\s\-().]{6,19}$/
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 const inputClass =
   'font-mono text-sm px-4 py-2.5 rounded-sm outline-none w-full border border-border bg-transparent text-ink'
 
+const errorClass = 'font-mono text-xs text-red-600 mt-1'
+
+const errorBorder = 'border-red-400'
+
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
-  const [phoneError, setPhoneError] = useState('')
+  const [errors, setErrors] = useState({ name: '', email: '', phone: '' })
+
+  const validate = (name: string, value: string): string => {
+    switch (name) {
+      case 'name':
+        return value.trim() === '' ? 'Name is required' : ''
+      case 'email':
+        return value && !EMAIL_REGEX.test(value) ? 'Enter a valid email address' : ''
+      case 'phone':
+        return value && !PHONE_REGEX.test(value) ? 'Enter a valid phone number' : ''
+      default:
+        return ''
+    }
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    if (name === 'phone') {
-      setPhoneError(value && !PHONE_REGEX.test(value) ? 'Enter a valid phone number' : '')
-    }
+    setErrors(prev => ({ ...prev, [name]: validate(name, value) }))
     setForm(prev => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (phoneError) return
+    const nameErr = validate('name', form.name)
+    const emailErr = validate('email', form.email)
+    const phoneErr = validate('phone', form.phone)
+    if (nameErr || emailErr || phoneErr) {
+      setErrors({ name: nameErr, email: emailErr, phone: phoneErr })
+      return
+    }
     setStatus('sending')
     try {
       await emailjs.send(
@@ -36,6 +57,7 @@ export default function Contact() {
       )
       setStatus('sent')
       setForm({ name: '', email: '', phone: '', message: '' })
+      setErrors({ name: '', email: '', phone: '' })
     } catch {
       setStatus('error')
     }
@@ -48,23 +70,29 @@ export default function Contact() {
 
         <div className="grid md:grid-cols-2 gap-12">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <input
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Name"
-              required
-              className={inputClass}
-            />
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="Email"
-              required
-              className={inputClass}
-            />
+            <div>
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Name"
+                className={`${inputClass} ${errors.name ? errorBorder : ''}`}
+              />
+              {errors.name && <p className={errorClass}>{errors.name}</p>}
+            </div>
+
+            <div>
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="Email"
+                className={`${inputClass} ${errors.email ? errorBorder : ''}`}
+              />
+              {errors.email && <p className={errorClass}>{errors.email}</p>}
+            </div>
+
             <div>
               <input
                 name="phone"
@@ -72,12 +100,11 @@ export default function Contact() {
                 value={form.phone}
                 onChange={handleChange}
                 placeholder="Phone (optional)"
-                className={`${inputClass} ${phoneError ? 'border-red-400' : ''}`}
+                className={`${inputClass} ${errors.phone ? errorBorder : ''}`}
               />
-              {phoneError && (
-                <p className="font-mono text-xs text-red-600 mt-1">{phoneError}</p>
-              )}
+              {errors.phone && <p className={errorClass}>{errors.phone}</p>}
             </div>
+
             <textarea
               name="message"
               value={form.message}
@@ -87,9 +114,11 @@ export default function Contact() {
               rows={5}
               className={`${inputClass} resize-none`}
             />
+
             <Button type="submit" disabled={status === 'sending'}>
               {status === 'sending' ? 'Sending...' : 'Send message'}
             </Button>
+
             {status === 'sent' && (
               <p className="font-mono text-xs text-green-600">Message sent!</p>
             )}
