@@ -4,7 +4,7 @@ import Hero from '../Hero'
 describe('Hero', () => {
   it('renders name and title', () => {
     render(<Hero />)
-    expect(screen.getByText('Ollie Regan')).toBeInTheDocument()
+    expect(screen.getByText('Oliver Regan')).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Software Engineer')
   })
 

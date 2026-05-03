@@ -10,7 +10,7 @@ export default function Hero() {
     <section id="hero" className="min-h-screen flex items-center">
       <div className="max-w-5xl mx-auto px-6 py-24">
         <p className="font-mono text-xs uppercase tracking-widest mb-4 text-muted">
-          Ollie Regan
+          Oliver Regan
         </p>
 
         <h1 className="font-mono font-bold text-5xl md:text-6xl leading-tight mb-6 text-ink">

@@ -12,7 +12,7 @@ describe('NavBar', () => {
 
   it('renders site name', () => {
     render(<NavBar />)
-    expect(screen.getByText('Ollie Regan')).toBeInTheDocument()
+    expect(screen.getByText('Oliver Regan')).toBeInTheDocument()
   })
 
   it('toggles mobile menu open and closed', () => {

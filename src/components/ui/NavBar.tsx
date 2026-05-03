@@ -17,7 +17,7 @@ export default function NavBar() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-surface border-b border-border">
       <nav className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
         <a href="#hero" className="font-mono font-bold text-sm tracking-tight text-ink">
-          Ollie Regan
+          Oliver Regan
         </a>
 
         <div className="hidden md:flex items-center gap-8">
